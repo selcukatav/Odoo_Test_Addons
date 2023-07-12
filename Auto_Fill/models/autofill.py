@@ -72,13 +72,14 @@ class SaleOrder(models.Model):
             })
         return res
 
-    def action_quotation_send(self):
-        res = super(SaleOrder, self).action_quotation_send()
+    def action_quotation_sent(self):
+        res = super(SaleOrder, self).action_quotation_sent()
 
         # Quotation gönderildiğinde x_quo_date'i güncelle
-        self.write({
-            'x_quo_date': fields.Date.today(),
-        })
+        for record in self:
+            record.write({
+                'x_quo_date': fields.Date.today(),
+            })
 
         return res
 
@@ -86,9 +87,10 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).action_mark_as_sent()
 
         # Quotation gönderildi olarak işaretlendiğinde x_quo_date'i güncelle
-        self.write({
-            'x_quo_date': fields.Date.today(),
-        })
+        for record in self:
+            record.write({
+                'x_quo_date': fields.Date.today(),
+            })
 
         return res
 
