@@ -21,8 +21,8 @@
         'views/invisiblefields.xml',
         'views/positioningfields.xml',
         'views/requiredfields.xml',
-        'views/stringchangesfields.xml',
-        'views/widgetchangesfields.xml'
+        'views/stringchangefields.xml',
+        'views/widgetchangefields.xml'
     ],
     'demo': [
         # 'demo/demo.xml',
