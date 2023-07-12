@@ -92,8 +92,8 @@ class SaleOrder(models.Model):
 
         return res
 
-class PurchaseOrderLine(models.Model):
-    _inherit = 'purchase.order.line'
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
 
     pricekg = fields.Float(compute='_compute_pricekg', string='Price per Kg', readonly=True, store=True)
 
