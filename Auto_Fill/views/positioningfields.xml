@@ -43,7 +43,7 @@
                     <field name="x_coating"/>
                 </xpath>
                 <xpath expr="//page/field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
-                    <field name="x_product_delivery_date"/>
+                    <field name="x_product_delivery_date" optional="hide"/>
                 </xpath>
                 <xpath expr="//page/field[@name='order_line']/tree//field[@name='price_unit']" position="before">
                     <field name="x_totalweight"/>
