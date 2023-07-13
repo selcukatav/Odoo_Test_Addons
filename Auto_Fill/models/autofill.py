@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, vals):
         company_id = vals.get('company_id', False)
-        if company_id and company_id[0] == 1:
+        if company_id == 1:
             return super().create(vals)
 
         # x_customer_reference'ın x_rfq_reference'a kopyalandığını kontrol edin.
