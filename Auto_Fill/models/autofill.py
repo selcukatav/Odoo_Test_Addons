@@ -13,8 +13,9 @@ class SaleOrder(models.Model):
 
     @api.model
     def create(self, vals):
-        if self.company_id.id == 1:
-           return super().action_confirm()
+        company_id = vals.get('company_id', False)
+        if company_id and company_id[0] == 1:
+            return super().create(vals)
 
         # x_customer_reference'ın x_rfq_reference'a kopyalandığını kontrol edin.
         if 'x_customer_reference' in vals and vals['x_customer_reference']:
@@ -60,8 +61,8 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         if self.company_id.id == 1:
             return super().action_confirm()
-            
-        res = super(SaleOrder, self).action_confirm()
+
+        res = super().action_confirm()
 
         # Eğer x_customer_reference değiştiyse analitik hesap ve proje adını güncelle
         if self.x_rfq_reference != self.x_customer_reference:
