@@ -22,7 +22,7 @@
         'views/positioningfields.xml',
         'views/requiredfields.xml',
         'views/stringchangefields.xml',
-        'views/widgetchangesfields.xml'
+        'views/widgetchangefields.xml'
     ],
     'demo': [
         # 'demo/demo.xml',
