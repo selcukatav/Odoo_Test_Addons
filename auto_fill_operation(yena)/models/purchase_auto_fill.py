@@ -6,7 +6,8 @@ class PurchaseOrder(models.Model):
     x_contact_id = fields.Many2one('res.partner', string='Contact Person')
     x_rfq_sent_date = fields.Date('S-RFQ Sent Date')
     x_required_delivery_date = fields.Date('Required Delivery Date')
-
+    x_customer_ref = fields.Char(string='Customer Reference')
+    
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
         self.x_contact_id = False
