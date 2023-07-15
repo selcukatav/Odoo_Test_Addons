@@ -497,11 +497,7 @@ class BlanketOrderLine(models.Model):
         result = []
         if self.env.context.get("from_purchase_order"):
             for record in self:
-                if record.partner_ref:
-                    name = record.partner_ref
-                else:
-                    name = record.order_id.name
-                res = "[%s]" % name
+                res = "[%s]" % record.order_id.partner_ref
                 if record.date_schedule:
                     formatted_date = self._format_date(record.date_schedule)
                     res += " - {}: {}".format(_("Date Scheduled"), formatted_date)
@@ -513,7 +509,6 @@ class BlanketOrderLine(models.Model):
                 result.append((record.id, res))
             return result
         return super().name_get()
-
     def _get_display_price(self, product):
 
         seller = product._select_seller(
