@@ -6,7 +6,7 @@
     'website': "https://yenaengineering.nl",
     'category': 'Sales',
     'license': 'LGPL-3',
-    'depends': ['base', 'sale_management', 'project', 'analytic'],
+    'depends': ['base', 'sale_management', 'project', 'analytic', 'purchase'],
     'data': [
         'views/purchase_views/invisiblefields.xml',
         'views/purchase_views/positioningfields.xml',
