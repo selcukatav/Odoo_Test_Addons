@@ -30,13 +30,20 @@ class PurchaseOrder(models.Model):
 
         return res
 
-    class PurchaseOrderLine(models.Model):
-        _inherit = 'purchase.order.line'
+class PurchaseOrderLine(models.Model):
+    _inherit = 'purchase.order.line'
 
-        x_product_required_delivery_date = fields.Date('Product Required Delivery Date')
-        pricekg = fields.Float(compute='_compute_pricekg', string='EUR/kg', readonly=True, store=True)
+    x_product_required_delivery_date = fields.Date('Product Required Delivery Date')
+    pricekg = fields.Float(compute='_compute_pricekg', string='EUR/kg', readonly=True, store=True)
 
-        @api.depends('price_subtotal', 'x_totalweight')
-        def _compute_pricekg(self):
-            for line in self:
-                line.pricekg = line.price_subtotal / line.x_totalweight if line.x_totalweight else 0
+    @api.depends('price_subtotal', 'x_totalweight')
+    def _compute_pricekg(self):
+        for line in self:
+            line.pricekg = line.price_subtotal / line.x_totalweight if line.x_totalweight else 0
+
+    @api.model
+    def create(self, vals):
+        # Set x_stage to 21 when a purchase order line is created
+        vals['x_stage'] = 21
+
+        return super(PurchaseOrderLine, self).create(vals)
