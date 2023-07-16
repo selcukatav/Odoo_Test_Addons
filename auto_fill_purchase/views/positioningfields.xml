@@ -29,6 +29,13 @@
                 <xpath expr="//page/field[@name='order_line']/tree//field[@name='price_unit']" position="after">
                     <field name="pricekg"/>
                 </xpath>
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="x_Coating"/>
+                </xpath>
+                <xpath expr="//field[@name='price_subtotal']" position="before">
+                    <field name="x_stage" optional="hide"/>
+                    <field name="x_status" optional="hide"/>
+                </xpath>
             </field>
         </record>
     </data>
