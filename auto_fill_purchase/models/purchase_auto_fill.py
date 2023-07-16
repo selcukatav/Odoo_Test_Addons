@@ -19,15 +19,15 @@ class PurchaseOrder(models.Model):
 
         return super().create(vals)
 
-    def button_send_rfq_email(self):
-        res = super(PurchaseOrder, self).button_send_rfq_email()
-
+    def action_rfq_send(self):
+        res = super(PurchaseOrder, self).action_rfq_send()
+    
         # RFQ gönderildiğinde x_rfq_sent_date'i güncelle
         for record in self:
             record.write({
                 'x_rfq_sent_date': fields.Date.today(),
             })
-
+    
         return res
 
 class PurchaseOrderLine(models.Model):
