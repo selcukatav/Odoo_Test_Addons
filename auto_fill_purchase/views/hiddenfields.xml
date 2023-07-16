@@ -9,9 +9,6 @@
                 <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="attributes">
                     <attribute name="optional">hidden</attribute>
                 </xpath>
-                <xpath expr="//field[@name='order_line']/tree//field[@name='analytic_tag_ids']" position="attributes">
-                    <attribute name="optional">hidden</attribute>
-                </xpath>
                 <xpath expr="//field[@name='order_line']/tree//field[@name='product_packaging_qty']" position="attributes">
                     <attribute name="optional">hidden</attribute>
                 </xpath>
