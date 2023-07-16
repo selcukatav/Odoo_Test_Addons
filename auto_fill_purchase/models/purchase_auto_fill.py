@@ -29,6 +29,16 @@ class PurchaseOrder(models.Model):
             })
     
         return res
+        
+    def button_approve(self, force=False):
+        res = super(PurchaseOrder, self).button_approve(force=force)
+
+        # Transfer project number to receipts
+        for order in self:
+            for pick in order.picking_ids:
+                pick.write({'x_project_transfer': order.x_project_purchase})
+
+        return res
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
