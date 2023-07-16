@@ -8,10 +8,10 @@
     'license': 'LGPL-3',
     'depends': ["purchase"],
     'data': [
+        'views/hiddenfields.xml',
         'views/invisiblefields.xml',
         'views/positioningfields.xml',
         'views/requiredfields.xml',
-
     ],
     'demo': [
         # 'demo/demo.xml',
