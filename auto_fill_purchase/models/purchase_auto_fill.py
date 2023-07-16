@@ -44,6 +44,5 @@ class PurchaseOrderLine(models.Model):
     @api.model
     def create(self, vals):
         # Set x_stage to 21 when a purchase order line is created
-        vals['x_stage'] = 21
-
+        vals['x_stage'] = 1
         return super(PurchaseOrderLine, self).create(vals)
