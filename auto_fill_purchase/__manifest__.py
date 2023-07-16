@@ -12,7 +12,7 @@
         'views/invisiblefields.xml',
         'views/positioningfields.xml',
         'views/requiredfields.xml',
-
+        'views/widgetchangefields.xml',
     ],
     'demo': [
         # 'demo/demo.xml',
