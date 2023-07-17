@@ -5,6 +5,6 @@ class ProcurementGroup(models.Model):
 
     def _run_buy(self, product_id, product_qty, product_uom, location_id, name, origin, values):
         # Belirli bir şirket için satın alma işlemlerini engelle
-        if self.env.company.name == 'Your Company Name':
+        if self.env.company.id == 1:
             return
         super()._run_buy(product_id, product_qty, product_uom, location_id, name, origin, values)
