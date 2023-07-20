@@ -6,7 +6,13 @@ class PurchaseOrder(models.Model):
     x_contact_id = fields.Many2one('res.partner', string='Contact Person')
     x_rfq_sent_date = fields.Date('S-RFQ Sent Date')
     x_required_delivery_date = fields.Date('Required Delivery Date')
+    is_current_user = fields.Boolean(compute='_compute_is_current_user')
 
+    @api.depends('user_id')
+    def _compute_is_current_user(self):
+        for record in self:
+            record.is_current_user = record.user_id == self.env.user
+            
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
         self.x_contact_id = False
