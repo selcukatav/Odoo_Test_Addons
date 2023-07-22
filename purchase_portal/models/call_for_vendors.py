@@ -40,7 +40,6 @@ class CallForVendors(models.Model):
                         'order_id': rfq.id,
                         'product_id': line.product_id.id,
                         'product_qty': line.quantity,
-                        'date_planned': line.delivery_date,
                         'call_for_vendors_id': record.id,
                         # Other line fields go here
                     })
