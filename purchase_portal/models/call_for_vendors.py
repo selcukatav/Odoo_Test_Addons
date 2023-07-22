@@ -52,7 +52,7 @@ class CallForVendorsLine(models.Model):
     call_id = fields.Many2one('call.for.vendors', string='Call For Vendors')
     product_id = fields.Many2one('product.product', string='Product')
     quantity = fields.Float(string='Quantity')
-    product_uom = fields.Many2one(string='UoM')
+    product_uom = fields.Many2one('uom.uom', string='UoM')
     delivery_date = fields.Date(string='C-Delivery Date')
     total_weight = fields.Char(String='Total Weight')
     order_line_id = fields.Many2one('sale.order.line', string='Sale Order Line')
