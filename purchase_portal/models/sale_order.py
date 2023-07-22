@@ -38,7 +38,7 @@ class SaleOrder(models.Model):
                     'call_id': call_for_vendors_record.id,
                     'product_id': line.product_id.id,
                     'quantity': line.product_uom_qty,
-                    'product_uom': line.product_uom,
+                    'product_uom': line.product_uom.id,
                     'total_weight': line.x_totalweight,
                     'delivery_date': line.x_product_delivery_date,
                     'order_line_id': line.id,
