@@ -1,0 +1,96 @@
+<odoo>
+    <record id="seq_call_for_vendors" model="ir.sequence">
+        <field name="name">Call For Vendors</field>
+        <field name="code">call.for.vendors</field>
+        <field name="prefix">CFV</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+        <record id="view_call_for_vendors_form" model="ir.ui.view">
+        <field name="name">call.for.vendors.form</field>
+        <field name="model">call.for.vendors</field>
+        <field name="arch" type="xml">
+            <form string="Call For Vendors">
+                <header>
+                    <button name="send_to_vendors" string="Send to Vendors" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="incoterm"/>
+                            <field name="payment_term_id"/>
+                        </group>
+                        <group>
+                            <field name="commitment_date"/>
+                            <field name="x_project_sales"/>
+                            <field name="analytic_account_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Sale Lines">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="product_uom"/>
+                                    <field name="total_weight"/>
+                                    <field name="delivery_date"/>
+                                    <field name="order_line_id" invisible="1"/>
+                                    <field name="vendor_ids" widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                            <field name="notes" class="oe-bordered-editor" nolabel="1" placeholder="Terms and conditions..."/>
+                        </page>
+                        <page string="RFQ's">
+                            <field name="rfqs">
+                                <tree string="Related RFQs">
+                                    <field name="name"/>
+                                    <field name="partner_id" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="RFQ's Line">
+                            <field name="rfqs_line">
+                                <tree string="Related RFQs">
+                                    <field name="name"/>
+                                    <field name="partner_id" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_call_for_vendors_tree" model="ir.ui.view">
+        <field name="name">call.for.vendors.tree</field>
+        <field name="model">call.for.vendors</field>
+        <field name="arch" type="xml">
+            <tree string="Call For Vendors">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_call_for_vendors" model="ir.actions.act_window">
+        <field name="name">Call For Vendors</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">call.for.vendors</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_call_for_vendors_tree"/>
+    </record>
+
+    <menuitem
+            id="menu_call_for_vendors"
+            name="Call For Vendors"
+            parent="purchase.menu_purchase_root"
+            action="action_call_for_vendors"
+    />
+</odoo>
