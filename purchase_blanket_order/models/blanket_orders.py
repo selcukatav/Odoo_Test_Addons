@@ -407,6 +407,9 @@ class BlanketOrderLine(models.Model):
     order_id = fields.Many2one(
         "purchase.blanket.order", required=True, ondelete="cascade"
     )
+
+    partner_ref = fields.Char(related="order_id.partner_ref", string="Partner Reference", readonly=True)
+
     product_id = fields.Many2one(
         "product.product",
         string="Product",
