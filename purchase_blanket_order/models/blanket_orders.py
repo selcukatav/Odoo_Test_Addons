@@ -382,6 +382,8 @@ class BlanketOrderLine(models.Model):
     _description = "Purchase Blanket Order Line"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
+partner_ref = fields.Char(related='order_id.partner_ref', string='Vendor Reference', readonly=True)
+
     @api.depends("original_uom_qty", "price_unit", "taxes_id")
     def _compute_amount(self):
         for line in self:
