@@ -6,6 +6,8 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
 
+        incoterm = self.env['stock.incoterms'].browse(10)
+
         # Tüm satış siparişleri için döngü başlat
         for order in self:
             # İlişkili tüm satın alma siparişlerini bul
@@ -15,6 +17,7 @@ class SaleOrder(models.Model):
                 purchase_order.write({
                     'x_customer_ref': order.x_customer_reference,
                     'x_project_purchase': order.x_project_sales.id,
+                    'incoterm_id': incoterm.id
                 })
                 # İlişkili tüm satın alma sipariş satırlarını güncelle
                 for po_line in purchase_order.order_line:
