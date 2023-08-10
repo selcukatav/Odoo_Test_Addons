@@ -26,7 +26,11 @@ class SaleOrder(models.Model):
 
         company_id = vals.get('company_id', False)
         if company_id == 1:
-            return super().create(vals)
+            result = super().create(vals)
+            if result is None:
+                # Hata durumunu ele almak veya varsayılan bir değer döndürmek için kod ekleyin
+                return self.browse()  # Veya başka bir değer
+            return result
 
         # x_customer_reference'ın x_rfq_reference'a kopyalandığını kontrol edin.
         if 'x_customer_reference' in vals and vals['x_customer_reference']:
