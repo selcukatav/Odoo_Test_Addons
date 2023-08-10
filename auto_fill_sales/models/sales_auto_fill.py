@@ -24,8 +24,6 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, vals):
 
-        _logger.info("Creating a sale order with vals: %s", vals)
-
         company_id = vals.get('company_id', False)
         if company_id == 1:
             return super().create(vals)
@@ -54,36 +52,14 @@ class SaleOrder(models.Model):
         }
         project = self.env['project.project'].create(project_vals)
 
-        # Proje oluşturulduktan sonra bir analitik hesap oluştur.
-        analytic_account_vals = {
-            'name': project.name,
-            'partner_id': record.partner_id.id,
-            'company_id': record.company_id.id,
-            # ... Daha fazla alanı burada ekleyebilirsiniz.
-        }
-        analytic_account = self.env['account.analytic.account'].create(analytic_account_vals)
+        # Projenin analitik hesabını alın
+        analytic_account_id = project.analytic_account_id.id
 
         # Son olarak, satışa analitik hesabı ekleyin.
         record.write({
-            'analytic_account_id': analytic_account.id,
+            'analytic_account_id': analytic_account_id,
             'x_project_sales': project.id,
         })
-
-        _logger.info("Created a sale order with analytic account: %s", analytic_account.id)
-
-        unlinked_analytic_accounts = self.env['account.analytic.account'].search([
-            ('id', '=', record.analytic_account_id.id),
-            ('project_ids', '=', False) # Project bağlantısı olmayanları filtrele
-        ])
-
-        # Bağlı olmayan analitik hesapları silin
-        try:
-            unlinked_analytic_accounts.unlink()
-        except Exception as e:
-            raise UserError(("Unable to delete unlinked analytic account: %s") % str(e))
-
-        return record
-
 
     def action_confirm(self):
         if self.company_id.id == 1:
