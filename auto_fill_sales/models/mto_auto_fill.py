@@ -17,12 +17,15 @@ class SaleOrder(models.Model):
                     'x_project_purchase': order.x_project_sales.id,
                 })
                 # İlişkili tüm satın alma sipariş satırlarını güncelle
-                for po_line, so_line in zip(purchase_order.order_line, order.order_line):
-                    new_price_unit = so_line.price_unit * 0.72  # Satış fiyatını 0.72 ile çarp
-                    po_line.write({
-                        'price_unit': new_price_unit,  # Yeni fiyatı güncelle
-                        'account_analytic_id': order.analytic_account_id.id,
-                    })
+                for po_line in purchase_order.order_line:
+                    # Satış siparişi satırını, ürün kimliği ile eşleştir
+                    so_line = order.order_line.filtered(lambda line: line.product_id == po_line.product_id)
+                    if so_line:
+                        new_price_unit = so_line.price_unit * 0.72  # Satış fiyatını 0.72 ile çarp
+                        po_line.write({
+                            'price_unit': new_price_unit,  # Yeni fiyatı güncelle
+                            'account_analytic_id': order.analytic_account_id.id,
+                        })
 
             # İlişkili tüm teslimat emirlerini bul
             delivery_orders = self.env['stock.picking'].search([('origin', '=', order.name)])
