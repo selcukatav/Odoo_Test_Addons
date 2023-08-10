@@ -30,12 +30,5 @@ class SaleOrder(models.Model):
                             'account_analytic_id': order.analytic_account_id.id,
                         })
 
-            # İlişkili tüm teslimat emirlerini bul
-            delivery_orders = self.env['stock.picking'].search([('origin', '=', order.name)])
-            # İlişkili tüm teslimat emirlerini güncelle
-            for delivery_order in delivery_orders:
-                delivery_order.write({
-                    'x_project_transfer': [(6, 0, order.x_project_sales.ids)],
-                })
 
         return res
