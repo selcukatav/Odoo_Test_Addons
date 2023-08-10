@@ -52,12 +52,9 @@ class SaleOrder(models.Model):
         }
         project = self.env['project.project'].create(project_vals)
 
-        # Projenin analitik hesabını alın
-        analytic_account_id = project.analytic_account_id.id
-
         # Son olarak, satışa analitik hesabı ekleyin.
         record.write({
-            'analytic_account_id': analytic_account_id,
+            'analytic_account_id': project.analytic_account_id.id,
             'x_project_sales': project.id,
         })
 
