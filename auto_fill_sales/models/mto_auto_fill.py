@@ -6,7 +6,7 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
 
-        incoterm = self.env['stock.incoterms'].browse(10)
+        incoterm = self.env['account.incoterms'].browse(10)
 
         # Tüm satış siparişleri için döngü başlat
         for order in self:
