@@ -26,11 +26,7 @@ class SaleOrder(models.Model):
 
         company_id = vals.get('company_id', False)
         if company_id == 1:
-            result = super().create(vals)
-            if result is None:
-                # Hata durumunu ele almak veya varsayılan bir değer döndürmek için kod ekleyin
-                return self.browse()  # Veya başka bir değer
-            return result
+            return super().create(vals)
 
         # x_customer_reference'ın x_rfq_reference'a kopyalandığını kontrol edin.
         if 'x_customer_reference' in vals and vals['x_customer_reference']:
@@ -56,11 +52,16 @@ class SaleOrder(models.Model):
         }
         project = self.env['project.project'].create(project_vals)
 
-        # Son olarak, satışa analitik hesabı ekleyin.
+        # Proje oluşturulduktan sonra analitik hesap ID'yi al
+        analytic_account_id = project.analytic_account_id.id if project.analytic_account_id else None
+
+        # Son olarak, satışa analitik hesabı ve proje ID'yi ekleyin.
         record.write({
-            'analytic_account_id': project.analytic_account_id.id,
+            'analytic_account_id': analytic_account_id,
             'x_project_sales': project.id,
         })
+
+        return record
 
     def action_confirm(self):
         if self.company_id.id == 1:
