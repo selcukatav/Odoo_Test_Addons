@@ -6,6 +6,7 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
 
+        current_user = self.env.user  # Şu anki kullanıcıyı al
         incoterm = self.env['account.incoterms'].browse(10)
 
         # Tüm satış siparişleri için döngü başlat
@@ -15,6 +16,7 @@ class SaleOrder(models.Model):
             # İlişkili tüm satın alma siparişlerini güncelle
             for purchase_order in purchase_orders:
                 purchase_order.write({
+                    'user_id': current_user.id,  # Mevcut kullanıcıyı user_id alanına yaz
                     'x_customer_ref': order.x_customer_reference,
                     'x_project_purchase': order.x_project_sales.id,
                     'incoterm_id': incoterm.id
