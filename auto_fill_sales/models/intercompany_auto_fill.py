@@ -11,13 +11,16 @@ class PurchaseOrder(models.Model):
         # Satın almadan satışa aktarılacak verileri alın
         purchase_order = self.env['purchase.order'].browse(self.id)
 
+        project = self.env['project.project'].browse(purchase_order.x_project_purchase)
+        analytic_account_id = project.analytic_account_id.id if project.analytic_account_id else False
+
         # Şirket ve partner koşulları
         if purchase_order.company_id.id == 2 and purchase_order.partner_id.id == 1:
             # Satış siparişi değerleri
             sale_order_vals = {
                 'partner_id': purchase_order.partner_id.id,
                 'x_project_sales': purchase_order.x_project_purchase,
-                'analytic_account_id': purchase_order.analytic_account_id.id,
+                'analytic_account_id': analytic_account_id,
                 'order_line': []
             }
 
@@ -29,7 +32,6 @@ class PurchaseOrder(models.Model):
                     'name': po_line.name,
                     'product_uom_qty': po_line.product_qty,
                     'price_unit': po_line.price_unit,
-                    'account_analytic_id': po_line.account_analytic_id.id,
                 }
                 sale_order_vals['order_line'].append((0, 0, sale_line_vals))
 
