@@ -36,8 +36,8 @@ class PurchaseOrder(models.Model):
 
         return res
     
-    def button_confirm(self, force=False):
-        res = super(PurchaseOrder, self).button_confirm(force)
+    def button_confirm(self):
+        res = super(PurchaseOrder, self).button_confirm(False)
 
         for order in self:
 
