@@ -37,12 +37,18 @@ class PurchaseOrder(models.Model):
         return res
     
     def button_approve(self, force=False):
-        res = super(PurchaseOrder, self).button_approve(force=force)
+        res = super(PurchaseOrder, self).button_approve(force)
 
-        # Transfer project number to receipts
-        for order in self:
-            for pick in order.picking_ids:
-                pick.write({'x_project_transfer': order.x_project_purchase})
+        for purchase_order in self:
+            project_purchase = purchase_order.x_project_purchase
+
+            # İlişkili tüm teslimat emirlerini bul
+            delivery_orders = self.env['stock.picking'].search([('origin', '=', purchase_order.name)])
+            # İlişkili tüm teslimat emirlerini güncelle
+            for delivery_order in delivery_orders:
+                delivery_order.write({
+                    'x_project_transfer': project_purchase.id if project_purchase else False,
+                })
 
         return res
 
