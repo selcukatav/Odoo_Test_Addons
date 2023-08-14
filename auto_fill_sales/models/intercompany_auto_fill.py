@@ -11,7 +11,8 @@ class PurchaseOrder(models.Model):
         # Satın almadan satışa aktarılacak verileri alın
         purchase_order = self.env['purchase.order'].browse(self.id)
 
-        project = self.env['project.project'].browse(purchase_order.x_project_purchase)
+        project_id = purchase_order.x_project_purchase
+        project = self.env['project.project'].browse(project_id)
         analytic_account_id = project.analytic_account_id.id if project.analytic_account_id else False
 
         # Şirket ve partner koşulları
