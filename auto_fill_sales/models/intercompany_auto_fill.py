@@ -17,7 +17,6 @@ class PurchaseOrder(models.Model):
             sale_order_vals = {
                 'partner_id': purchase_order.partner_id.id,
                 'x_project_sales': purchase_order.x_project_purchase,
-                'analytic_account_id': purchase_order.x_project_purchase.analytic_account_id.id,
                 'order_line': []
             }
 
