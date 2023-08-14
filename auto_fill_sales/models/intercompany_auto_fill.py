@@ -4,7 +4,7 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     @api.model
-    def _inter_company_create_sale_order(self):
+    def _inter_company_create_sale_order(self, dest_company):
         # Satış siparişinin oluşturulması ve düzenlenmesi için metod
         # Bu metodu uygun bir yere yerleştirin veya mevcut bir iş akışına entegre edin
 
