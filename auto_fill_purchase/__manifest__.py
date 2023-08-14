@@ -10,6 +10,7 @@
     'data': [
         'views/yenacustomization.xml',
         'views/yenacustomization_stock.xml',
+        'views/invisiblefields.xml',
     ],
     'demo': [
         # 'demo/demo.xml',
