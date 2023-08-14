@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="view_order_form_inherit_field" model="ir.ui.view">
-            <field name="name">purchase.order.form.inherit.customization_purchase.yena</field>
+            <field name="name">purchase.order.form.inherit.customization.yena</field>
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
@@ -33,18 +33,6 @@
                 <xpath expr="//field[@name='price_subtotal']" position="before">
                     <field name="x_stage" optional="hide"/>
                     <field name="x_status" optional="hide"/>
-                </xpath>
-                <xpath expr="(//button[@name='action_rfq_send' and @states='draft'])[1]" position="after">
-                    <button name="action_rfq_send" string="Send by Email" type="object" class="oe_highlight" data-hotkey="g"
-                          attrs="{'invisible': ['|', ('is_current_user', '=', False), ('state', '!=', 'draft')]}"/>
-                </xpath>
-                <xpath expr="(//button[@name='action_view_picking'])[1]" position="after">
-                    <button name="action_rfq_send" string="Send PO by Email" type="object" data-hotkey="g"
-                          attrs="{'invisible': ['|', ('is_current_user', '=', False), ('state', '!=', 'purchase')]}"/>
-                </xpath>
-                <xpath expr="(//button[@name='button_confirm' and @states='sent'])[1]" position="after">
-                    <button name="action_rfq_send" string="Re-Send by Email" type="object" data-hotkey="g"
-                          attrs="{'invisible': ['|', ('is_current_user', '=', False), ('state', '!=', 'sent')]}"/>
                 </xpath>
 
                 <xpath expr="(//field[@name='date_approve'])[1]" position="attributes">
