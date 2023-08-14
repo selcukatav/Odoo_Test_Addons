@@ -21,7 +21,7 @@
                     <field name="x_rfq_sent_date" string="S-RFQ Sent Date"/>
                     <field name="x_required_delivery_date" string="S-Required Delivery Date"/>
                 </xpath>
-                <xpath expr="//field[@name='effective_date']" position="after">
+                <xpath expr="//field[@name='date_approve']" position="after">
                     <field name="x_customer_ref" required="1" string="C-Reference No"/>
                     <field name="x_project_purchase" string="Project Number"/>
                     <field name="x_tags" widget="many2many_tags" string="Tags"/>
