@@ -37,9 +37,4 @@ class PurchaseOrder(models.Model):
                 }
                 sale_order_vals['order_line'].append((0, 0, sale_line_vals))
 
-            # Satış siparişini oluştur
-            sale_order = self.env['sale.order'].create(sale_order_vals)
-
-            # İlgili işlemler (onaylama, gönderme, vb.) burada yapılabilir
-
             return sale_order
