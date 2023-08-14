@@ -8,9 +8,9 @@
     'license': 'LGPL-3',
     'depends': ["purchase"],
     'data': [
+        'views/invisiblefields.xml',
         'views/yenacustomization.xml',
         'views/yenacustomization_stock.xml',
-        'views/invisiblefields.xml',
     ],
     'demo': [
         # 'demo/demo.xml',
