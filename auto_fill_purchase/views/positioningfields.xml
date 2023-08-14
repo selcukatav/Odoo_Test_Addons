@@ -12,7 +12,7 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="x_contact_id" string="Contact Person"/>
                     <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" string="Company (Buyer)"/>
-                    <field name="user_id" required="1"/>
+                    <field name="user_id"/>
                     <field name="incoterm_id" required="1"/>
                     <field name="payment_term_id"/>
                 </xpath>
