@@ -17,6 +17,7 @@ class PurchaseOrder(models.Model):
             sale_order_vals = {
                 'x_project_sales': project.id if project else False,
                 'analytic_account_id': analytic_account_id,
+                'order_line': []
             }
 
             # Satın alma siparişi satırlarını döngüleyin
