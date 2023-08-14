@@ -7,7 +7,9 @@ class PurchaseOrder(models.Model):
     def _inter_company_create_sale_order(self, dest_company):
         # Öncelikle orijinal metodun işlevselliğini çalıştır
         sale_order = super()._inter_company_create_sale_order(dest_company)
-
+        
+        return sale_order
+        
         # Satış siparişi oluşturulmuşsa, özelleştirmeleri uygula
         if sale_order:
             # Satın almadan satışa aktarılacak verileri alın
@@ -35,4 +37,4 @@ class PurchaseOrder(models.Model):
                         'price_unit': po_line.price_unit,
                     })
 
-        return sale_order
+        
