@@ -21,7 +21,6 @@ class PurchaseOrder(models.Model):
         if purchase_order.company_id.id == 2 and purchase_order.partner_id.id == 1:
             # Satış siparişi değerleri
             sale_order_vals = {
-                'partner_id': purchase_order.partner_id.id,
                 'x_project_sales': project.id if project else False,
                 'analytic_account_id': analytic_account_id,
                 'order_line': []
