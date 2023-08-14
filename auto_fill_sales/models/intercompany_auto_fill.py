@@ -7,7 +7,7 @@ class PurchaseOrder(models.Model):
     def _inter_company_create_sale_order(self, dest_company):
         # Satış siparişinin oluşturulması ve düzenlenmesi için metod
         # Bu metodu uygun bir yere yerleştirin veya mevcut bir iş akışına entegre edin
-
+        sale_order = super()._inter_company_create_sale_order(dest_company)
         # Satın almadan satışa aktarılacak verileri alın
         purchase_order = self.env['purchase.order'].browse(self.id)
 
@@ -21,8 +21,6 @@ class PurchaseOrder(models.Model):
         if purchase_order.company_id.id == 2 and purchase_order.partner_id.id == 1:
             # Satış siparişi değerleri
             sale_order_vals = {
-                'partner_id': purchase_order.partner_id.id,
-                'company_id': 1,
                 'x_project_sales': project.id if project else False,
                 'analytic_account_id': analytic_account_id,
                 'order_line': []
