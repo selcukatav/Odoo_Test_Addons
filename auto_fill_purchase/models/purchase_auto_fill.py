@@ -42,14 +42,16 @@ class PurchaseOrder(models.Model):
         for purchase_order in self:
             project_purchase = purchase_order.x_project_purchase
 
-            # İlişkili tüm teslimat emirlerini bul
-            delivery_orders = self.env['stock.picking'].search([('origin', '=', purchase_order.name)])
+            # İlişkili tüm teslimat emirlerini bul (receipt belgeleri)
+            delivery_orders = self.env['stock.picking'].search(
+                [('origin', '=', purchase_order.name), ('picking_type_id.code', '=', 'incoming')])
             # İlişkili tüm teslimat emirlerini güncelle
             for delivery_order in delivery_orders:
                 delivery_order.write({
-                    'x_project_transfer': project_purchase.id if project_purchase else False,
+                    'x_project_transfer': purchase_order.x_project_purchase.id,
+                    # purchase_order'dan x_project_purchase değerini al
                 })
-
+        
         return res
 
 class PurchaseOrderLine(models.Model):
