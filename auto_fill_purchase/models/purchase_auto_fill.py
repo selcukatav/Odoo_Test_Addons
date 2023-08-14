@@ -40,11 +40,10 @@ class PurchaseOrder(models.Model):
         res = super(PurchaseOrder, self).button_approve(force)
 
         for purchase_order in self:
-            project_purchase = purchase_order.x_project_purchase
 
             # İlişkili tüm teslimat emirlerini bul (receipt belgeleri)
             delivery_orders = self.env['stock.picking'].search(
-                [('origin', '=', purchase_order.name), ('picking_type_id.code', '=', 'incoming')])
+                [('origin', '=', purchase_order.name), ('picking_type_id.code', '=', 'Receipt')])
             # İlişkili tüm teslimat emirlerini güncelle
             for delivery_order in delivery_orders:
                 delivery_order.write({
