@@ -6,7 +6,7 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_ref']" position="attributes">
+               <xpath expr="//field[@name='partner_ref']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='user_id']" position="attributes">
@@ -31,15 +31,6 @@
                     <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='order_line']/tree//field[@name='date_planned']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="(//button[@name='action_rfq_send' and @states='draft'])[1]" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="(//button[@name='action_rfq_send' and @states='sent'])[1]" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="(//button[@name='action_rfq_send' and @states='purchase'])[1]" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
             </field>
