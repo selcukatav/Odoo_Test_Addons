@@ -20,6 +20,7 @@
                     <field name="x_order_date" string="S-RFQ Date"/>
                     <field name="x_rfq_sent_date" string="S-RFQ Sent Date"/>
                     <field name="x_required_delivery_date" string="S-Required Delivery Date"/>
+                    <field name="is_current_user" invisible="1"/>
                 </xpath>
 
                 <xpath expr="//page/field[@name='order_line']/tree//field[@name='price_unit']" position="after">
