@@ -48,10 +48,9 @@ class PurchaseOrder(models.Model):
             # İlişkili tüm teslimat emirlerini güncelle
             for delivery_order in delivery_orders:
                 delivery_order.write({
-                    'x_project_transfer': purchase_order.x_project_purchase.id,
-                    # purchase_order'dan x_project_purchase değerini al
+                    'x_project_transfer': [(6, 0, purchase_order.x_project_purchase.ids)],
                 })
-        
+
         return res
 
 class PurchaseOrderLine(models.Model):
