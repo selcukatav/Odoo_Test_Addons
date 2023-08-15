@@ -59,6 +59,7 @@ class SaleOrder(models.Model):
         record.write({
             'analytic_account_id': analytic_account_id,
             'x_project_sales': project.id,
+            'company_id': 2,
         })
 
         return record
