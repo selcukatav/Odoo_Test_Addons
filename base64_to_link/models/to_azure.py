@@ -13,7 +13,7 @@ class ProductTemplate(models.Model):
     technical_drawing_filename = fields.Char()
     technical_drawing_url = fields.Char(string='Technical Drawing URL', readonly=True)
     technical_drawing_revision = fields.Char(string='Technical Drawing Revision')
-    technical_drawing_link = fields.Char(compute='_compute_technical_drawing_link', string='Technical Drawing')
+    technical_drawing_link = fields.Html(string='Technical Drawing Link', compute="_compute_technical_drawing_link")
 
     def _post_technical_drawing(self, drawing, filename, product_id, product_name):
         try:
@@ -59,10 +59,9 @@ class ProductTemplate(models.Model):
     def _compute_technical_drawing_link(self):
         for record in self:
             if record.technical_drawing_url:
-                # Burada, URL'den dosya adını alıp, bir HTML linki oluşturuyoruz.
-                # Bu, tıklanabilir bir bağlantı olarak görünecektir.
                 file_name = record.technical_drawing_url.split('/')[-1]
-                record.technical_drawing_link = '<a href="%s">%s</a>' % (record.technical_drawing_url, file_name)
+                link = '<a href="{}">{}</a>'.format(record.technical_drawing_url, file_name)
+                record.technical_drawing_link = link
             else:
                 record.technical_drawing_link = False
 
