@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <record id="action_print_proposal_form" model="ir.actions.server">
+            <field name="name">Print Proposal Form</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">records.print_proposal_form()</field>
+        </record>
+
         <record id="view_order_form_inherit_field" model="ir.ui.view">
             <field name="name">sale.order.form.inherit.positioning.yena</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="mark_as_quotation_sent" type="object" string="Mark As Quotation Sent" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="print_proposal_form" string="Print Proposal Form" type="object" class="oe_highlight"  groups="base.group_user"/>
+                </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="x_contact_id" />
                 </xpath>
@@ -23,7 +35,7 @@
                     <div class="o_td_label">
                         <label for="date_order" string="Order Date"/>
                     </div>
-                    <field name="date_order" nolabel="1" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}"/>
+                    <field name="date_order" nolabel="1" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}" string="Confirmation of Order Date"/>
                     <field name="commitment_date" string="C-Delivery Date"/>
                     <field name="x_delivery_date"/>
                     <field name="x_customer_reference" string="C-Reference No" attrs="{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}" required="1"/>
