@@ -65,6 +65,9 @@ class SaleOrder(models.Model):
         return record
 
     def action_confirm(self):
+        if  not self.commitment_date:
+            raise UserError('The C-Delivery Date is mandatory! Please add this date and try again.')
+          
         if self.company_id.id == 1:
             return super().action_confirm()
 
