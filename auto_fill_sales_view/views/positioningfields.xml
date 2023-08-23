@@ -3,7 +3,8 @@
     <data>
         <record id="action_print_proposal_form" model="ir.actions.server">
             <field name="name">Print Proposal Form</field>
-
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="binding_model_id" ref="model_sale_order"/>
             <field name="state">code</field>
             <field name="code">records.print_proposal_form()</field>
         </record>
@@ -23,6 +24,7 @@
                 <xpath expr="//field[@name='partner_shipping_id']" position="after">
                     <field name="company_id" string="Company (Seller)"/>
                     <field name="user_id" string="Sales Person (E-mail Sender)"/>
+                    <field name="opportunity_id"/>
                     <field name="incoterm" required="1"/>
                     <field name="payment_term_id"/>
                     <field name="currency_id"/>
