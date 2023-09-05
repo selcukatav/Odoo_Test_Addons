@@ -55,7 +55,7 @@
                           attrs="{'invisible': ['|', ('is_current_user', '=', False), ('state', '=', 'done')]}"/>
                 </xpath>
                   <xpath expr="//field[@name='note']" position="after">
-                    <field name="account_note" class="oe-bordered-editor" style="margin-left:10rem" nolabel="1"/>
+                    <field name="x_account_note" class="oe-bordered-editor" style="margin-left:10rem" nolabel="1"/>
                 </xpath>
             </field>
         </record>
