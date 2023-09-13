@@ -25,7 +25,7 @@
         </xpath>
 
         <!-- Pricing bölümünün altına bir buton ekleyin -->
-        <xpath expr="//table[@id='purchase_order_table']/following-sibling::div" position="before">
+        <xpath expr="//section[@id='terms']" position="before">
             <t t-if="order.portal_status in ['offer_requested', 'revision_requested']">
                 <div class="text-right mt-3">
                     <button type="button" class="btn btn-primary send-purchase-data" t-att-data-order-id="order.id">Send</button>
