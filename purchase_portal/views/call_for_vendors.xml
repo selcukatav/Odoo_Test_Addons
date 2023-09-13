@@ -7,13 +7,14 @@
         <field name="company_id" eval="False"/>
     </record>
 
-        <record id="view_call_for_vendors_form" model="ir.ui.view">
+    <record id="view_call_for_vendors_form" model="ir.ui.view">
         <field name="name">call.for.vendors.form</field>
         <field name="model">call.for.vendors</field>
         <field name="arch" type="xml">
             <form string="Call For Vendors">
                 <header>
-                    <button name="send_to_vendors" string="Send to Vendors" type="object" class="oe_highlight"/>
+                    <button name="open_send_to_rfqs_wizard" string="Send RFQ's" type="object" class="oe_highlight"/>
+                    <button name="open_send_to_purchases_wizard" string="Send Purchases" type="object" class="oe_highlight"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -34,24 +35,39 @@
                     </group>
                     <notebook>
                         <page string="Sale Lines">
-                            <field name="line_ids">
-                                <tree editable="bottom">
-                                    <field name="product_id"/>
-                                    <field name="quantity"/>
-                                    <field name="product_uom"/>
-                                    <field name="total_weight"/>
-                                    <field name="delivery_date"/>
-                                    <field name="order_line_id" invisible="1"/>
-                                    <field name="vendor_ids" widget="many2many_tags"/>
-                                </tree>
-                            </field>
+                         <field name="line_ids">                          
+                          <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="rawmaterial_line"/>
+                                <field name="cutting_line" />
+                                <field name="welding_line" />
+                                <field name="coating_line" />
+                                <field name="montage_line" />
+                                <field name="partial_line" />
+                                <field name="quantity"/>
+                                <field name="product_uom"/>
+                                <field name="total_weight"/>
+                                <field name="delivery_date"/>
+                                <field name="order_line_id" invisible="1"/>
+                                <field name="vendor_ids" widget="many2many_tags"/>
+                            </tree>
+                        </field>
                             <field name="notes" class="oe-bordered-editor" nolabel="1" placeholder="Terms and conditions..."/>
+                            <field name="attachment_ids" widget='many2many_binary' string="Files"/>
                         </page>
                         <page string="RFQ's">
                             <field name="rfqs">
                                 <tree string="Related RFQs">
                                     <field name="name"/>
                                     <field name="partner_id" readonly="1"/>
+                                    <field
+                                        name="portal_status"
+                                        widget="badge"
+                                        decoration-success="portal_status == 'purchase_approved' or portal_status == 'purchase_sent'"
+                                        decoration-warning="portal_status == 'offer_received' or portal_status == 'revision_received'"
+                                        decoration-info="portal_status == 'offer_requested' or portal_status == 'revision_requested'"
+                                    />
+                                    <field name="state"/>
                                 </tree>
                             </field>
                         </page>
@@ -59,7 +75,40 @@
                             <field name="rfqs_line">
                                 <tree string="Related RFQs">
                                     <field name="name"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="price_unit" class="o_field_price_unit_bg" decoration-success="is_cheapest"/>
+                                    <field name="currency_id"/>
+                                    <field name="date_planned" class="o_field_date_planned_bg" decoration-info="is_earliest"/>
                                     <field name="partner_id" readonly="1"/>
+                                    <field name="is_cheapest" invisible="1"/>
+                                    <field name="is_earliest" invisible="1"/>
+                                    <field name="approved" invisible="1"/>
+                                    <field name="cancelled" invisible="1"/>
+                                   <button string="Approve" type="object" class="oe_highlight btn-success" name="button_approve"
+                                            attrs="{'invisible': [('approved', '=', True)]}">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+                                    </button>
+                                    <button string="Cancel" type="object" class="oe_highlight btn-danger" name="button_cancel"
+                                            attrs="{'invisible': [('cancelled', '=', True)]}">
+                                        <i class="fa fa-times" aria-hidden="true" style="color: red;"></i>
+                                    </button>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Purchases">
+                            <field name="purchases">
+                                <tree string="Related Purchases">
+                                    <field name="name"/>
+                                    <field name="partner_id" readonly="1"/>
+                                    <field
+                                        name="portal_status"
+                                        widget="badge"
+                                        decoration-success="portal_status == 'purchase_approved' or portal_status == 'purchase_sent'"
+                                        decoration-warning="portal_status == 'offer_received' or portal_status == 'revision_received'"
+                                        decoration-info="portal_status == 'offer_requested' or portal_status == 'revision_requested'"
+                                    />
+                                    <field name="state" widget="badge" decoration-success="state == 'purchase' or state == 'done'" decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'"/>
                                 </tree>
                             </field>
                         </page>
@@ -69,16 +118,16 @@
         </field>
     </record>
 
-    <record id="view_call_for_vendors_tree" model="ir.ui.view">
-        <field name="name">call.for.vendors.tree</field>
-        <field name="model">call.for.vendors</field>
-        <field name="arch" type="xml">
-            <tree string="Call For Vendors">
-                <field name="name"/>
-            </tree>
-        </field>
-    </record>
+ <record id="view_call_for_vendors_tree" model="ir.ui.view">
+    <field name="name">call.for.vendors.tree</field>
+    <field name="model">call.for.vendors</field>
+    <field name="arch" type="xml">
+        <tree string="Call For Vendors">
+            <field name="name"/>
 
+        </tree>
+    </field>
+</record>
     <record id="action_call_for_vendors" model="ir.actions.act_window">
         <field name="name">Call For Vendors</field>
         <field name="type">ir.actions.act_window</field>

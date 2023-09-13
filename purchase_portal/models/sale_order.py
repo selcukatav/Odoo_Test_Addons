@@ -7,7 +7,9 @@ class SaleOrder(models.Model):
 
     def action_create_call_for_vendors(self):
         CallForVendors = self.env['call.for.vendors']
+
         CallForVendorsLine = self.env['call.for.vendors.line']
+
         for record in self:
             # Check if the sale.order record is already in the call.for.vendors model
             call_for_vendors_record = CallForVendors.search([('sale_order_id', '=', record.id)], limit=1)
@@ -24,9 +26,15 @@ class SaleOrder(models.Model):
             if call_for_vendors_record:
                 # If the record exists, update it
                 call_for_vendors_record.write(vals)
+                # Send updated email
+                template = self.env.ref('purchase_portal.email_template_updated_call_for_vendors')
             else:
                 # If the record does not exist, create it
                 call_for_vendors_record = CallForVendors.create(vals)
+                # Send new email
+                template = self.env.ref('purchase_portal.email_template_new_call_for_vendors')
+
+            template.send_mail(call_for_vendors_record.id, force_send=True)
 
             for line in record.order_line:
                 # Check if the sale.order.line record is already in the call.for.vendors.line model
