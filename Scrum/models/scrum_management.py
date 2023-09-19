@@ -21,7 +21,7 @@ class ScrumLine(models.Model):
     _name = 'scrum.line'
     _description = 'Scrum Line'
 
-    scrum_project_id = fields.Many2one('scrum.project', string='Scrum Project', required=True, ondelete='cascade')
+    scrum_project_id = fields.Many2many('scrum.project', string='Scrum Project', required=True, ondelete='cascade')
     project_id = fields.Many2one('project.project', string='Project', ondelete='cascade')
     task_id = fields.Many2one(
         'project.task', 'Task', readonly=False, index=True,
